@@ -41,10 +41,5 @@ class MessageUser:
         else:
             return []
 
-
-messageUser = MessageUser()
-messageUser.add_user('chuong', 14.6)
-messageUser.add_user('vAn', 20)
-print(messageUser.user_details)
-messageUser.make_messages()
-print(messageUser.messages)
+    def get_users(self):
+        return self.user_details
