@@ -1,6 +1,6 @@
-id,name,email
-1,xuanchuongdp,chuong.nguyen@nakivo.com
-2,huy,huy.nguyen@nakivo.com
-3,huy,huy.nguyen@nakivo.com
-4,huy,huy.nguyen@nakivo.com
-5,huy,huy.nguyen@nakivo.com
+id,name,email,amount,sent
+1,xuanchuongdp,chuong.nguyen@nakivo.com,1234.123,False
+2,huy,huy.nguyen@nakivo.com,8884.3,True
+3,huy,huy.nguyen@nakivo.com,1234.123,False
+4,huy,huy.nguyen@nakivo.com,1234.123,False
+5,huy,huy.nguyen@nakivo.com,1234.123,False
