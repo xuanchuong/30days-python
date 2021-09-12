@@ -1,7 +1,8 @@
 import os
 
 def get_template_path(path):
-    template_path = os.path.join(os.getcwd(), path)
+    cwd = os.path.dirname(__file__)
+    template_path = os.path.join(cwd, path)
     if not os.path.isfile(template_path):
         raise Exception("This is not valid template path %s" %path)
     return template_path

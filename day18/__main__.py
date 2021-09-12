@@ -1,6 +1,5 @@
 from argparse import ArgumentParser
-
-from data_management import read_data
+from user_class import UserManager
 
 parser = ArgumentParser(prog='hungry')
 parser.add_argument('type', type=str, choices=['view', 'message'])
@@ -10,6 +9,6 @@ parser.add_argument('-e', '--email', type=str)
 args = parser.parse_args()
 
 if args.type == 'view':
-    print(read_data(user_id=args.user_id, user_email=args.email))
+    print(UserManager().get_user_data(user_id=args.user_id, user_email=args.email))
 elif args.type == 'message':
-    print('send message')
+    UserManager().message_user()

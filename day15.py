@@ -17,5 +17,3 @@ def get_length(file_path):
         reader = csv.reader(csvFile)
         data_list = list(reader)
         return len(data_list)
-
-append_data('data.csv', 'huy', 'huy.nguyen@nakivo.com')

@@ -56,5 +56,3 @@ def edit_data(edit_id, email=None, amount=None, sent=None):
                     row['amount'] = amount
             writer.writerow(row)
         shutil.move(temp_file.name, file_name)
-
-print(read_data())
