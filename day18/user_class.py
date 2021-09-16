@@ -1,26 +1,52 @@
 import csv
 import shutil
 import os
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from tempfile import NamedTemporaryFile
 from templates import get_template, render_context
 
 file_path = os.path.join(os.path.dirname(__file__), 'data.csv')
+host = 'smtp.gmail.com'
+port = 587
+username = 'email@gmail.com' # Provide your gmail address
+password = 'pass' # Provide your gmail password
+from_email = username
+to_list = ['xuanchuongdp@gmail.com']
 
 class UserManager():
 
-    def message_user(self):
+    def message_user(self, user_id = None, user_email = None):
+        user_data = self.get_user_data(user_id=user_id, user_email=user_email)
+        if user_data:
+            plain_, html_ = self.render_message(user_data)
+            user_email = user_data.get('email', 'xuanchuongdp@gmail.com')
+            email_conn = smtplib.SMTP(host, port)
+            email_conn.starttls()
+            email_conn.login(username, password)
+
+            msg = MIMEMultipart('alternative')
+            msg['Subject'] = 'Hello there!'
+            msg['From'] = from_email
+            msg['To'] = user_email
+            part1 = MIMEText(plain_, 'plain')
+            msg.attach(part1)
+            email_conn.sendmail(from_email, [user_email], msg.as_string())
+            email_conn.quit()
+
+    def render_message(self, user_data):
         file_txt = 'templates/email_message.txt'
         file_html = 'templates/email_message.html'
 
         template_string = get_template(file_txt)
         template_html = get_template(file_html)
-        context = {
-            'name': 'chuong',
-            'date': None,
-            'total': None
-        }
-        print(render_context(template_string, context))
-        print(render_context(template_html, context))
+        if isinstance(user_data, dict):
+            context = user_data
+            plain_ = render_context(template_string, context)
+            html_ = render_context(template_html, context)
+            return (plain_, html_)
+        return (None, None)
 
     def get_user_data(self, user_id=None, user_email=None):
         file_name = file_path
@@ -31,12 +57,12 @@ class UserManager():
                     if int(user_id) == int(row.get('id')):
                         return row
                     else:
-                        return "User id {user_id} not found".format(user_id=user_id)
+                        print("User id {user_id} not found".format(user_id=user_id))
                 elif user_email is not None:
                     if user_email == row.get('email'):
                         return row
                     else:
-                        return "User email {user_email} not found".format(user_email=user_email)
+                        print("User email {user_email} not found".format(user_email=user_email))
         return None
 
     def append_data(self, file_path, name, email):

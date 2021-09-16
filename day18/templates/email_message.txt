@@ -1,7 +1,7 @@
 Hello {name}
 
-Thank you for the purchase on {date}.
-We hope you are excited about using it. Just as a reminder the purchase total was ${total}.
+Thank you for the purchase on .
+We hope you are excited about using it. Just as a reminder the purchase total was ${amount}.
 Have a great one!
     
 Team CFE
